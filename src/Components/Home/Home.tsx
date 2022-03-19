@@ -94,7 +94,7 @@ const Home = () => {
 
     return (
         <>
-            <h1 style={{"textAlign": "center"}}>Post List</h1>
+            <h1 data-testid="header" style={{"textAlign": "center"}}>Post List</h1>
             {
                 loading ? <Box sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                     <CircularProgress size={30} />
