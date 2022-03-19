@@ -1,0 +1,20 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { PostsDataInterface } from '../Home/Home';
+
+const Details = () => {
+    const {state} = useLocation();
+    const post = state as PostsDataInterface;
+
+    return (
+        <div>
+            <pre>
+                {
+                    JSON.stringify(post, null, 2)
+                }
+            </pre>
+        </div>
+    );
+};
+
+export default Details;
