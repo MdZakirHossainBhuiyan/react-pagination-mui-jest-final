@@ -11,12 +11,17 @@ import Details from './Components/Details/Details';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/details' component={Details} />
+    <Switch>
+        <Route exact path='/'>
+          <Home />
+        </Route>
+        <Route path='/details'>
+          <Details />
+        </Route>
+        <Route path="*">
+          <p>page Not Found</p>
+        </Route>
       </Switch>
-    </Router>
   );
 }
 

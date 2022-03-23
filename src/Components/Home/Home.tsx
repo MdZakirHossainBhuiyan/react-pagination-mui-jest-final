@@ -1,5 +1,6 @@
 import { CircularProgress, Container, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Home.css';
@@ -64,17 +65,30 @@ const Home = () => {
 
     const getPostsInfo = async () => {
         try{
+            
             setLoading(true);
+            // const response = await fetch(`https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageCount}`);
+            // const data = await response.json();
 
-            const response = await fetch(`https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageCount}`);
-            const data = await response.json();
+            axios.get(`https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageCount}`)
+            .then(response => {
 
-            const _postsInfo = [...postsInfo, ...data.hits];
+                const getPostData = response.data;
 
-            setPostsInfo(_postsInfo);
-            setPostsInfoLength(_postsInfo.length);
+                const _postsInfo = [...postsInfo, ...getPostData.hits];
 
+                setPostsInfo(_postsInfo);
+                setPostsInfoLength(_postsInfo.length);
+
+                
+            })
+
+            // const _postsInfo = [...postsInfo, ...data.hits];
+
+            // setPostsInfo(_postsInfo);
+            // setPostsInfoLength(_postsInfo.length);
             setLoading(false);
+            
         }
         catch(e) {
             setLoading(false);
