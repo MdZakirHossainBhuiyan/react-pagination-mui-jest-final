@@ -67,10 +67,8 @@ const Home = () => {
         try{
             
             setLoading(true);
-            // const response = await fetch(`https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageCount}`);
-            // const data = await response.json();
 
-            axios.get(`https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageCount}`)
+            await axios.get(`https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${pageCount}`)
             .then(response => {
 
                 const getPostData = response.data;
@@ -80,13 +78,8 @@ const Home = () => {
                 setPostsInfo(_postsInfo);
                 setPostsInfoLength(_postsInfo.length);
 
-                
             })
 
-            // const _postsInfo = [...postsInfo, ...data.hits];
-
-            // setPostsInfo(_postsInfo);
-            // setPostsInfoLength(_postsInfo.length);
             setLoading(false);
             
         }
@@ -99,7 +92,7 @@ const Home = () => {
         setCurrentPage(newPage);
     }
 
-    const getDetailsInfo = (post: PostsDataInterface) => {
+    const getDetailsInfo = async (post: PostsDataInterface) => {
         history.push({
             pathname: '/details',
             state: post
@@ -111,14 +104,14 @@ const Home = () => {
             <h1 data-testid="header" style={{"textAlign": "center"}}>Post List</h1>
             {
                 loading ? <Box sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    <CircularProgress size={30} />
+                    <CircularProgress data-testid="loaderTest" size={30} />
                 </Box> : <></>
             }
             <Container style={{maxWidth: "100%"}}>
                 <Paper>
                     <TableContainer sx={{height: "calc(100vh - 150px)"}}>
                         <Table stickyHeader aria-label="sticky table">
-                            <TableHead>
+                            <TableHead data-testid="tableHeader">
                                 <TableRow>
                                     {
                                         tableColumns.map(column => 
@@ -129,7 +122,7 @@ const Home = () => {
                                     }
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            <TableBody data-testid="tableBody">
                                 {
                                     postsInfo.slice((currentPage - 1)*pageSize, (currentPage - 1)*pageSize + pageSize).map((row, index) => {
                                         return (
@@ -152,7 +145,7 @@ const Home = () => {
                         </Table>
                     </TableContainer>
 
-                    <Pagination count={postsInfoLength / pageSize } page={currentPage} onChange={handlePageChange} />
+                    <Pagination data-testid="pagePagination" count={postsInfoLength / pageSize } page={currentPage} onChange={handlePageChange} />
 
                 </Paper>
             </Container>
