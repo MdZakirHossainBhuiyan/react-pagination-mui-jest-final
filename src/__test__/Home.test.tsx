@@ -1,14 +1,9 @@
-import React from 'react';
 import Home from '../Components/Home/Home';
 import {render} from '@testing-library/react';
-import useEvent from '@testing-library/user-event';
-import handlePageChange from '../Components/Home/Home';
 import axios from 'axios';
-import Details from '../Components/Details/Details';
-import { buttonClickerAsync, elementFinder, renderWithMemoryRouter } from '../Utilities/testUtilities';
+import { elementFinder, renderWithMemoryRouter } from '../Utilities/testUtilities';
 import { act } from 'react-dom/test-utils';
-import { BrowserRouter, MemoryRouter, Switch } from 'react-router-dom';
-import App from '../App';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 describe("Testing Home Component", () => {
     beforeEach(async () => {
@@ -72,13 +67,6 @@ describe("Testing Home Component", () => {
         elementFinder("tableBody");
     });
 
-    // test("should render raw JSON if clicked on a news", async () => {
-    //     renderWithMemoryRouter("/", <App />);
-    
-    //     await buttonClickerAsync("Nvidia Announces Hopper Architecture, the Next Generation of Accelerated?", 0);
-    //     await elementFinder("detailsPosts");
-    //   });
-
     test("should render pagination", () => {
         act(async () => {
             render(
@@ -88,9 +76,8 @@ describe("Testing Home Component", () => {
                     </MemoryRouter>
                 </BrowserRouter>
             );
-          });
+        });
     
         elementFinder("pagePagination");
-    });
-    
+    });  
 })

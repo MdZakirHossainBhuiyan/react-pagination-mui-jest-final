@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 
 export const renderWithMemoryRouter = (
@@ -25,8 +24,4 @@ export const textFinderRx = async (text: string) => {
     return expect(
       await screen.findByText(new RegExp(text), {}, { timeout: 1000 })
     ).toBeInTheDocument();
-};
-
-export const buttonClickerAsync = async (button: string, btnNumber: number) => {
-  userEvent.click(await screen.findByText(button), { button: btnNumber });
 };

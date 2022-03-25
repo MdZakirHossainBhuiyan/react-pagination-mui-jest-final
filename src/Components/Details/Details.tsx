@@ -8,7 +8,7 @@ const Details = () => {
 
     return (
         <div data-testis="detailsPosts">
-            <pre>
+            <pre data-testid="postDetails">
                 {
                     JSON.stringify(post, null, 2)
                 }
