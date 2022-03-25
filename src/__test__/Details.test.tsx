@@ -20,7 +20,7 @@ describe("should render details components", () => {
     });
 
     test("should render details component", async () => {
-        act(async () => {
+        await act(async () => {
             render(
                 <BrowserRouter>
                     <MemoryRouter>

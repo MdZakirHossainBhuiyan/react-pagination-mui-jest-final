@@ -34,41 +34,13 @@ describe("Testing Home Component", () => {
                     </MemoryRouter>
                 </BrowserRouter>
             );
-          });
+        });
     
         elementFinder("loaderTest");
     });
 
-    test("should render header part of table", () => {
-        act(async () => {
-            render(
-                <BrowserRouter>
-                    <MemoryRouter>
-                        <Home />
-                    </MemoryRouter>
-                </BrowserRouter>
-            );
-          });
-    
-        elementFinder("tableHeader");
-    });
-
-    test("should render body part of table", () => {
-        act(async () => {
-            render(
-                <BrowserRouter>
-                    <MemoryRouter>
-                        <Home />
-                    </MemoryRouter>
-                </BrowserRouter>
-            );
-          });
-    
-        elementFinder("tableBody");
-    });
-
-    test("should render pagination", () => {
-        act(async () => {
+    test("should render header part of table", async () => {
+        await act(async () => {
             render(
                 <BrowserRouter>
                     <MemoryRouter>
@@ -78,6 +50,34 @@ describe("Testing Home Component", () => {
             );
         });
     
-        elementFinder("pagePagination");
+        await elementFinder("tableHeader");
+    });
+
+    test("should render body part of table", async () => {
+        await act(async () => {
+            render(
+                <BrowserRouter>
+                    <MemoryRouter>
+                        <Home />
+                    </MemoryRouter>
+                </BrowserRouter>
+            );
+        });
+    
+        await elementFinder("tableBody");
+    });
+
+    test("should render pagination", async () => {
+        await act(async () => {
+            render(
+                <BrowserRouter>
+                    <MemoryRouter>
+                        <Home />
+                    </MemoryRouter>
+                </BrowserRouter>
+            );
+        });
+    
+        await elementFinder("pagePagination");
     });  
 })
