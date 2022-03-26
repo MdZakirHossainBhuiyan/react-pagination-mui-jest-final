@@ -1,7 +1,7 @@
 import Home from '../Components/Home/Home';
-import {render} from '@testing-library/react';
+import {render, waitFor} from '@testing-library/react';
 import axios from 'axios';
-import { elementFinder, renderWithMemoryRouter } from '../Utilities/testUtilities';
+import { elementFinder, renderWithMemoryRouter, buttonClickerAsync } from '../Utilities/testUtilities';
 import { act } from 'react-dom/test-utils';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
@@ -65,6 +65,15 @@ describe("Testing Home Component", () => {
         });
     
         await elementFinder("tableBody");
+    });
+
+    test("should render raw JSON if clicked on a news", async () => {
+        renderWithMemoryRouter("/", <Home />);
+
+        await waitFor(() => {
+            buttonClickerAsync("Nvidia Announces Hopper Architecture, the Next Generation of Accelerated", 0);
+            elementFinder("news-details");
+        })
     });
 
     test("should render pagination", async () => {
