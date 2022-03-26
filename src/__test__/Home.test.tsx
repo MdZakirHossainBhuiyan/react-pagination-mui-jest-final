@@ -67,12 +67,12 @@ describe("Testing Home Component", () => {
         await elementFinder("tableBody");
     });
 
-    test("should render raw JSON if clicked on a news", async () => {
+    test("should render raw JSON if clicked on a post", async () => {
         renderWithMemoryRouter("/", <Home />);
 
         await waitFor(() => {
             buttonClickerAsync("Nvidia Announces Hopper Architecture, the Next Generation of Accelerated", 0);
-            elementFinder("news-details");
+            elementFinder("detailsPosts");
         })
     });
 
