@@ -1,3 +1,4 @@
+import { act } from "@testing-library/react";
 import axios from "axios";
 import App from "../App";
 import { elementFinder, renderWithMemoryRouter, textExpecter, textFinderRx } from "../Utilities/testUtilities";
@@ -10,13 +11,17 @@ describe("App Router", () => {
     });
 
     test("should render Home Page '/'", async () => {
-        renderWithMemoryRouter("/", <App />);
+        await act(async () => {
+            renderWithMemoryRouter("/", <App />);
+        });
 
-        await textExpecter("Post List");
+        textExpecter("Post List");
     });
 
-    test("Should go to '/details' from App", () => {
-        renderWithMemoryRouter("/details", <App />);
+    test("Should go to '/details' from App", async () => {
+        await act(async () => {
+            renderWithMemoryRouter("/details", <App />);
+        });
 
         elementFinder("detailsPosts");
     });

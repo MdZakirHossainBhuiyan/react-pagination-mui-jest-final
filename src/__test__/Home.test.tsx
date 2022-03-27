@@ -1,5 +1,5 @@
 import Home from '../Components/Home/Home';
-import {render, waitFor} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import axios from 'axios';
 import { elementFinder, renderWithMemoryRouter, buttonClickerAsync } from '../Utilities/testUtilities';
 import { act } from 'react-dom/test-utils';
@@ -20,13 +20,17 @@ describe("Testing Home Component", () => {
     });
 
     test("should initially render header of component", async () => {
-        renderWithMemoryRouter("/", <Home />);
-    
-        await elementFinder("header");
+        await act(async () => {
+            renderWithMemoryRouter("/", <Home />);
+        });
+
+        waitFor(() => {
+            expect(screen.getByTestId("detailsPosts")).toBeInTheDocument();
+        });
     });
 
-    test("should render loader of component", () => {
-        act(async () => {
+    test("should render loader of component", async () => {
+        await act(async () => {
             render(
                 <BrowserRouter>
                     <MemoryRouter>
@@ -68,12 +72,18 @@ describe("Testing Home Component", () => {
     });
 
     test("should render raw JSON if clicked on a post", async () => {
-        renderWithMemoryRouter("/", <Home />);
+        await act(async () => {
+            renderWithMemoryRouter("/", <Home />);
+        });
 
-        await waitFor(() => {
-            buttonClickerAsync("Nvidia Announces Hopper Architecture, the Next Generation of Accelerated", 0);
-            elementFinder("detailsPosts");
-        })
+        buttonClickerAsync(
+            "Nvidia Announces Hopper Architecture, the Next Generation of Accelerated",
+            0
+        );
+
+        waitFor(() => {
+            expect(screen.getByTestId("detailsPosts")).toBeInTheDocument();
+        });
     });
 
     test("should render pagination", async () => {
@@ -87,6 +97,6 @@ describe("Testing Home Component", () => {
             );
         });
     
-        await elementFinder("pagePagination");
+        elementFinder("pagePagination");
     });  
 })
