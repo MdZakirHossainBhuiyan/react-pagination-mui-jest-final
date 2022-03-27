@@ -61,6 +61,9 @@ const Home = () => {
 
     useEffect(() => {
         getPostsInfo();
+        return () => {
+            setPostsInfo(postsInfo);
+        };
     }, [pageCount])
 
     const getPostsInfo = async () => {
